@@ -2,6 +2,8 @@ syntax="proto3";
 
 package user;
 
+import "base.proto";
+
 option go_package="/user";
 
 service UserService {
@@ -16,7 +18,9 @@ message RegisterReq {
 }
 
 message RegisterResp {
-    int32 user_id = 1;
+    int64 user_id = 1;
+    string token = 2;
+    base.BaseResp base_resp = 3;
 }
 
 message LoginReq {
@@ -25,5 +29,7 @@ message LoginReq {
 }
 
 message LoginResp {
-    int32 user_id = 1;
+    int64 user_id = 1;
+    string token = 2;
+    base.BaseResp base_resp = 3;
 }

@@ -1,0 +1,23 @@
+version: '3'
+services:
+  mysql:
+    image: 'mysql:latest'
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_DATABASE=gorm
+      - MYSQL_USER=gorm
+      - MYSQL_PASSWORD=gorm
+      - MYSQL_RANDOM_ROOT_PASSWORD="yes"
+  redis:
+    image: 'redis:latest'
+    ports:
+      - 6379:6379
+  # mygomall:
+  #   build: .
+  #   command: sh -c "./wait-for.sh mysql:3306 redis:6379 -- ./bubble ./conf/config.ini"
+  #   depends_on:
+  #     - mysql
+  #     - redis
+  #   ports:
+  #     - "8888:8888"   

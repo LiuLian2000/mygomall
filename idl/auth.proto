@@ -2,6 +2,8 @@ syntax="proto3";
 
 package auth;
 
+import "base.proto";
+
 option go_package="/auth";
 
 service AuthService {
@@ -10,17 +12,22 @@ service AuthService {
 }
 
 message DeliverTokenReq {
-    int32  user_id= 0;
+    int64  user_id= 1;
+    int64  timestamp = 2;
+    string  signature = 3;
 }
 
 message VerifyTokenReq {
-    string token = 0;
+    string token = 1;
 }
 
 message DeliveryResp {
-    string token = 0;
+    string token = 1;
+    base.BaseResp base_resp = 2;
 }
 
 message VerifyResp {
-    bool res = 0;
+    bool res = 1;
+    int64 user_id = 2;
+    base.BaseResp base_resp = 3;
 }

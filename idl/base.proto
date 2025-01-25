@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package base;
+
+option go_package="/base";
+
+// BaseResp 定义
+message BaseResp {
+  string status_message = 1;             // 原来的 StatusMessage
+  int32 status_code = 2;                 // 原来的 StatusCode
+  map<string, string> extra = 3;         // 原来的 Extra
+}
