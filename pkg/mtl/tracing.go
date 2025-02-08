@@ -15,7 +15,7 @@
 package mtl
 
 import (
-	"github.com/hertz-contrib/obs-opentelemetry/provider"
+	"github.com/kitex-contrib/obs-opentelemetry/provider"
 )
 
 func InitTracing(serviceName string) (p provider.OtelProvider) {
