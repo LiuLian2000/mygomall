@@ -3,6 +3,8 @@ package errno
 import (
 	"errors"
 	"fmt"
+
+	base "github.com/Group-lifelong-youth-training/mygomall/rpc_gen/kitex_gen/base"
 )
 
 const (
@@ -20,6 +22,8 @@ const (
 	ConfirmPasswordMismatchErrCode = 11005
 	// Auth ErrCode
 	UnauthorizedDeliverRequestErrCode = 12001
+	// Order ErrCode
+
 )
 
 type ErrNo struct {
@@ -63,4 +67,16 @@ func ConvertErr(err error) ErrNo {
 	s := ServiceErr
 	s.ErrMsg = err.Error()
 	return s
+}
+
+func HundleRespAndErr(baseresp *base.BaseResp, err error) (handledbaseresp *base.BaseResp) {
+	if err != nil {
+		handledbaseresp = BuildBaseResp(err)
+		return
+	}
+	if baseresp != nil && baseresp.StatusCode != SuccessCode {
+		return baseresp
+	}
+	handledbaseresp = BuildBaseResp(Success)
+	return
 }

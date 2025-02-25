@@ -24,7 +24,7 @@ func AuthMiddleware(next endpoint.Endpoint) endpoint.Endpoint {
 			return errno.UnauthorizedDeliverRequestErr
 		}
 
-		// 6️⃣ 继续执行业务逻辑
+		//继续执行业务逻辑
 		err = next(ctx, request, response)
 
 		return err

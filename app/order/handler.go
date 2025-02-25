@@ -2,8 +2,10 @@ package main
 
 import (
 	"context"
-	order "github.com/Group-lifelong-youth-training/mygomall/rpc_gen/kitex_gen/order"
+
 	"github.com/Group-lifelong-youth-training/mygomall/app/order/biz/service"
+	"github.com/Group-lifelong-youth-training/mygomall/pkg/errno"
+	order "github.com/Group-lifelong-youth-training/mygomall/rpc_gen/kitex_gen/order"
 )
 
 // OrderServiceImpl implements the last service interface defined in the IDL.
@@ -11,9 +13,17 @@ type OrderServiceImpl struct{}
 
 // PlaceOrder implements the OrderServiceImpl interface.
 func (s *OrderServiceImpl) PlaceOrder(ctx context.Context, req *order.PlaceOrderReq) (resp *order.PlaceOrderResp, err error) {
+	resp = new(order.PlaceOrderResp)
+	if len(req.GetOrderItems()) == 0 || req.GetUserId() <= 0 || len(req.GetEmail()) == 0 || req.GetAddress() == nil {
+		resp.BaseResp = errno.BuildBaseResp(errno.ParamErr)
+		return resp, nil
+	}
+
 	resp, err = service.NewPlaceOrderService(ctx).Run(req)
 
-	return resp, err
+	resp.BaseResp = errno.HundleRespAndErr(resp.BaseResp, err)
+
+	return resp, nil
 }
 
 // ListOrder implements the OrderServiceImpl interface.
