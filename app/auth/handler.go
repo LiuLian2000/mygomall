@@ -17,7 +17,7 @@ func (s *AuthServiceImpl) DeliverTokenByRPC(ctx context.Context, req *auth.Deliv
 	resp = new(auth.DeliveryResp)
 
 	fmt.Printf("%v", req)
-	if len(req.GetSignature()) == 0 {
+	if len(req.GetSignature()) == 0 || req.GetUserId() <= 0 || req.GetTimestamp() <= 0 {
 		resp.BaseResp = errno.BuildBaseResp(errno.ParamErr)
 		return resp, nil
 	}
@@ -30,7 +30,7 @@ func (s *AuthServiceImpl) DeliverTokenByRPC(ctx context.Context, req *auth.Deliv
 		return
 	}
 	resp.BaseResp = errno.BuildBaseResp(errno.Success)
-	fmt.Printf("\n%v", resp)
+	// fmt.Printf("\n%v", resp)
 	return resp, err
 }
 
