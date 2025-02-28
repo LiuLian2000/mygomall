@@ -6,4 +6,5 @@ use (
 	./app/user
 	./pkg
 	./rpc_gen
+	./test
 )

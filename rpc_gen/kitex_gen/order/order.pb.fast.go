@@ -381,6 +381,11 @@ func (x *Order) FastRead(buf []byte, _type int8, number int32) (offset int, err 
 		if err != nil {
 			goto ReadFieldError
 		}
+	case 7:
+		offset, err = x.fastReadField7(buf, _type)
+		if err != nil {
+			goto ReadFieldError
+		}
 	default:
 		offset, err = fastpb.Skip(buf, _type, number)
 		if err != nil {
@@ -431,6 +436,11 @@ func (x *Order) fastReadField5(buf []byte, _type int8) (offset int, err error) {
 
 func (x *Order) fastReadField6(buf []byte, _type int8) (offset int, err error) {
 	x.DeletedAt, offset, err = fastpb.ReadInt32(buf, _type)
+	return offset, err
+}
+
+func (x *Order) fastReadField7(buf []byte, _type int8) (offset int, err error) {
+	x.OrderState, offset, err = fastpb.ReadInt32(buf, _type)
 	return offset, err
 }
 
@@ -774,6 +784,7 @@ func (x *Order) FastWrite(buf []byte) (offset int) {
 	offset += x.fastWriteField4(buf[offset:])
 	offset += x.fastWriteField5(buf[offset:])
 	offset += x.fastWriteField6(buf[offset:])
+	offset += x.fastWriteField7(buf[offset:])
 	return offset
 }
 
@@ -824,6 +835,14 @@ func (x *Order) fastWriteField6(buf []byte) (offset int) {
 		return offset
 	}
 	offset += fastpb.WriteInt32(buf[offset:], 6, x.GetDeletedAt())
+	return offset
+}
+
+func (x *Order) fastWriteField7(buf []byte) (offset int) {
+	if x.OrderState == 0 {
+		return offset
+	}
+	offset += fastpb.WriteInt32(buf[offset:], 7, x.GetOrderState())
 	return offset
 }
 
@@ -1125,6 +1144,7 @@ func (x *Order) Size() (n int) {
 	n += x.sizeField4()
 	n += x.sizeField5()
 	n += x.sizeField6()
+	n += x.sizeField7()
 	return n
 }
 
@@ -1175,6 +1195,14 @@ func (x *Order) sizeField6() (n int) {
 		return n
 	}
 	n += fastpb.SizeInt32(6, x.GetDeletedAt())
+	return n
+}
+
+func (x *Order) sizeField7() (n int) {
+	if x.OrderState == 0 {
+		return n
+	}
+	n += fastpb.SizeInt32(7, x.GetOrderState())
 	return n
 }
 
@@ -1295,6 +1323,7 @@ var fieldIDToName_Order = map[int32]string{
 	4: "Address",
 	5: "CreatedAt",
 	6: "DeletedAt",
+	7: "OrderState",
 }
 
 var fieldIDToName_ListOrderResp = map[int32]string{

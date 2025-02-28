@@ -4,12 +4,15 @@ import (
 	"net"
 	"time"
 
+	"github.com/Group-lifelong-youth-training/mygomall/app/order/biz/dal"
+	"github.com/Group-lifelong-youth-training/mygomall/app/order/biz/dal/mysql"
+	"github.com/Group-lifelong-youth-training/mygomall/app/order/conf"
+	"github.com/Group-lifelong-youth-training/mygomall/app/order/infra/mq"
+	"github.com/Group-lifelong-youth-training/mygomall/rpc_gen/kitex_gen/order/orderservice"
 	"github.com/cloudwego/kitex/pkg/klog"
 	"github.com/cloudwego/kitex/pkg/rpcinfo"
 	"github.com/cloudwego/kitex/server"
 	kitexlogrus "github.com/kitex-contrib/obs-opentelemetry/logging/logrus"
-	"github.com/Group-lifelong-youth-training/mygomall/app/order/conf"
-	"github.com/Group-lifelong-youth-training/mygomall/rpc_gen/kitex_gen/order/orderservice"
 	"go.uber.org/zap/zapcore"
 	"gopkg.in/natefinch/lumberjack.v2"
 )
@@ -18,6 +21,13 @@ func main() {
 	opts := kitexInit()
 
 	svr := orderservice.NewServer(new(OrderServiceImpl), opts...)
+
+	dal.Init()
+
+	mq.Init()
+	scheduledMessageSender := mq.NewMessageSender(mysql.DB, mq.OrderEventPublisher)
+
+	go scheduledMessageSender.Start()
 
 	err := svr.Run()
 	if err != nil {
