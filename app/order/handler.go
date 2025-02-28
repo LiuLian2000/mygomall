@@ -42,7 +42,11 @@ func (s *OrderServiceImpl) MarkOrderPaid(ctx context.Context, req *order.MarkOrd
 
 // UpdateOrder implements the OrderServiceImpl interface.
 func (s *OrderServiceImpl) UpdateOrder(ctx context.Context, req *order.UpdateOrderReq) (resp *order.UpdateOrderResp, err error) {
+	resp = new(order.UpdateOrderResp)
+
 	resp, err = service.NewUpdateOrderService(ctx).Run(req)
+
+	resp.BaseResp = errno.HundleRespAndErr(resp.BaseResp, err)
 
 	return resp, err
 }

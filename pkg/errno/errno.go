@@ -23,7 +23,7 @@ const (
 	// Auth ErrCode
 	UnauthorizedDeliverRequestErrCode = 12001
 	// Order ErrCode
-
+	UnauthorizedUpdateOrderStatusRequestErrCode = 13001
 )
 
 type ErrNo struct {
@@ -45,16 +45,17 @@ func (e ErrNo) WithMessage(msg string) ErrNo {
 }
 
 var (
-	Success                       = NewErrNo(SuccessCode, "Success")
-	ServiceErr                    = NewErrNo(ServiceErrCode, "Service is unable to start successfully")
-	ParamErr                      = NewErrNo(ParamErrCode, "Wrong Parameter has been given")
-	LoginErr                      = NewErrNo(LoginErrCode, "Wrong username or password")
-	UserNotExistErr               = NewErrNo(UserNotExistErrCode, "User does not exists")
-	UserAlreadyExistErr           = NewErrNo(UserAlreadyExistErrCode, "User already exists")
-	UnauthorizedDeliverRequestErr = NewErrNo(UnauthorizedDeliverRequestErrCode, "Unauthorized request")
-	RpcErr                        = NewErrNo(RpcErrCode, "Rpc Err")
-	WrongPasswordErr              = NewErrNo(WrongPasswordErrCode, "Wrong Password")
-	ConfirmPasswordMismatchErr    = NewErrNo(ConfirmPasswordMismatchErrCode, "Confirm Password Mismatch")
+	Success                                 = NewErrNo(SuccessCode, "Success")
+	ServiceErr                              = NewErrNo(ServiceErrCode, "Service is unable to start successfully")
+	ParamErr                                = NewErrNo(ParamErrCode, "Wrong Parameter has been given")
+	LoginErr                                = NewErrNo(LoginErrCode, "Wrong username or password")
+	UserNotExistErr                         = NewErrNo(UserNotExistErrCode, "User does not exists")
+	UserAlreadyExistErr                     = NewErrNo(UserAlreadyExistErrCode, "User already exists")
+	UnauthorizedDeliverRequestErr           = NewErrNo(UnauthorizedDeliverRequestErrCode, "Unauthorized request")
+	RpcErr                                  = NewErrNo(RpcErrCode, "Rpc Err")
+	WrongPasswordErr                        = NewErrNo(WrongPasswordErrCode, "Wrong Password")
+	ConfirmPasswordMismatchErr              = NewErrNo(ConfirmPasswordMismatchErrCode, "Confirm Password Mismatch")
+	UnauthorizedUpdateOrderStatusRequestErr = NewErrNo(UnauthorizedUpdateOrderStatusRequestErrCode, "Changed Order Status Request Not From Checkout")
 )
 
 // ConvertErr convert error to Errno
