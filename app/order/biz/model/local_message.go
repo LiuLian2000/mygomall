@@ -6,6 +6,7 @@ import (
 	"gorm.io/gorm"
 )
 
+// TODO 加gorm tag
 type LocalMessage struct {
 	Base
 	Topic       string
@@ -20,8 +21,9 @@ type Product struct {
 }
 
 type OrderMessageBody struct {
-	UserId int64
-	Items  []Product
+	OrderId int64
+	UserId  int64
+	Items   []Product
 }
 
 func (oi LocalMessage) TableName() string {
