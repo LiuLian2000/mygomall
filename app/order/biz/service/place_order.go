@@ -42,8 +42,7 @@ func (s *PlaceOrderService) Run(req *order.PlaceOrderReq) (resp *order.PlaceOrde
 		},
 		OrderState: model.OrderStatePlaced,
 		UserId:     req.UserId,
-		Consignee: model.Consignee{
-			Email:         req.Email,
+		Address: model.Address{
 			Country:       req.GetAddress().Country,
 			State:         req.GetAddress().State,
 			City:          req.GetAddress().City,
@@ -77,6 +76,8 @@ func (s *PlaceOrderService) Run(req *order.PlaceOrderReq) (resp *order.PlaceOrde
 	if err != nil {
 		return
 	}
+
+	orderMessageBody.OrderId = messageId
 
 	jsonData, err := json.Marshal(orderMessageBody)
 	if err != nil {
