@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 ) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
 
 
-#product database
+#product service database
 CREATE DATABASE IF NOT EXISTS `product`  
    DEFAULT CHARACTER SET = 'utf8mb4';
 USE `product`;
@@ -25,10 +25,15 @@ CREATE TABLE IF NOT EXISTS `product` (
   `description` TEXT,
   `picture` VARCHAR(255),
   `price` FLOAT NOT NULL,
+  `categories` JSON,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
 
-CREATE TABLE IF NOT EXISTS `productcategories` (
-    `product_id` INT UNSIGNED NOT NULL,
-    `category` VARCHAR(255) NOT NULL
+CREATE TABLE IF NOT EXISTS `category` (
+    `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    `name` VARCHAR(255) NOT NULL,
+    `description` TEXT,
+    PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
