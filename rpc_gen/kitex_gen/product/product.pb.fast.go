@@ -128,12 +128,16 @@ func (x *Product) fastReadField5(buf []byte, _type int8) (offset int, err error)
 }
 
 func (x *Product) fastReadField6(buf []byte, _type int8) (offset int, err error) {
-	var v string
-	v, offset, err = fastpb.ReadString(buf, _type)
-	if err != nil {
-		return offset, err
-	}
-	x.Categories = append(x.Categories, v)
+	offset, err = fastpb.ReadList(buf, _type,
+		func(buf []byte, _type int8) (n int, err error) {
+			var v int32
+			v, offset, err = fastpb.ReadInt32(buf, _type)
+			if err != nil {
+				return offset, err
+			}
+			x.Categories = append(x.Categories, v)
+			return offset, err
+		})
 	return offset, err
 }
 
@@ -368,9 +372,12 @@ func (x *Product) fastWriteField6(buf []byte) (offset int) {
 	if len(x.Categories) == 0 {
 		return offset
 	}
-	for i := range x.GetCategories() {
-		offset += fastpb.WriteString(buf[offset:], 6, x.GetCategories()[i])
-	}
+	offset += fastpb.WriteListPacked(buf[offset:], 6, len(x.GetCategories()),
+		func(buf []byte, numTagOrKey, numIdxOrVal int32) int {
+			offset := 0
+			offset += fastpb.WriteInt32(buf[offset:], numTagOrKey, x.GetCategories()[numIdxOrVal])
+			return offset
+		})
 	return offset
 }
 
@@ -549,9 +556,12 @@ func (x *Product) sizeField6() (n int) {
 	if len(x.Categories) == 0 {
 		return n
 	}
-	for i := range x.GetCategories() {
-		n += fastpb.SizeString(6, x.GetCategories()[i])
-	}
+	n += fastpb.SizeListPacked(6, len(x.GetCategories()),
+		func(numTagOrKey, numIdxOrVal int32) int {
+			n := 0
+			n += fastpb.SizeInt32(numTagOrKey, x.GetCategories()[numIdxOrVal])
+			return n
+		})
 	return n
 }
 
