@@ -26,6 +26,7 @@ func main() {
 	p := mtl.InitTracing(serviceName)
 	defer p.Shutdown(context.Background())
 	dal.Init()
+	defer dal.Shutdown()
 	opts := kitexInit()
 
 	// nodeId, _ := strconv.ParseInt(os.Getenv("NODE_ID"), 10, 64)

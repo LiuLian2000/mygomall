@@ -64,6 +64,7 @@ message Order {
   Address address = 4;
   int32 created_at = 5;
   int32 deleted_at = 6;
+  int32 order_state = 7;
 }
 
 message ListOrderResp {

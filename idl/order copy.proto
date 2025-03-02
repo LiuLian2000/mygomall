@@ -22,7 +22,7 @@ message Address {
 
 message PlaceOrderReq {
   int64 user_id = 1;
-  string user_currency = 2;
+  string user_currency = 2; //货币种类
 
   Address address = 3;
   string email = 4;

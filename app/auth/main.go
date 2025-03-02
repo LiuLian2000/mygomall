@@ -24,6 +24,7 @@ func main() {
 	p := mtl.InitTracing(serviceName)
 	defer p.Shutdown(context.Background())
 	dal.Init()
+	defer dal.Shutdown()
 	opts := kitexInit()
 
 	svr := authservice.NewServer(new(AuthServiceImpl), opts...)
