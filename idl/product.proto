@@ -7,7 +7,7 @@ option go_package = "/product";
 service ProductCatalogService {
   rpc ListProducts(ListProductsReq) returns (ListProductsResp) {}
   rpc CreateProducts(CreateProductsReq) returns(CreateProductsResp){}
-  rpc ReduceProducts(ReduceProductsReq) returns(ReduceProductsResp){}
+  rpc UpdateProducts(UpdateProductsReq) returns(UpdateProductsResp){}
   rpc GetProduct(GetProductReq) returns (GetProductResp) {}
   rpc SearchProducts(SearchProductsReq) returns (SearchProductsResp) {}
 }
@@ -22,6 +22,7 @@ message Product {
   float price = 5;
   int64 store = 6;
   repeated string categories = 7;
+  bool status = 8;//商品状态：可出售/不可出售
 }
 message ListProductsReq{
   int32 page = 1;
@@ -38,10 +39,10 @@ message CreateProductsReq{
 message CreateProductsResp {
   int64 id = 1;
 }
-message ReduceProductsReq{
+message UpdateProductsReq{
   Product product = 1;
 }
-message ReduceProductsResp {
+message UpdateProductsResp {
   int64 id = 1;
 }
 

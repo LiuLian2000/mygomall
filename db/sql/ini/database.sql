@@ -114,6 +114,7 @@ CREATE TABLE IF NOT EXISTS `product` (
   `picture` VARCHAR(255),
   `price` FLOAT NOT NULL,
   `store` INT NOT NULL,
+  `status` TINYINT(1) default 1,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
 

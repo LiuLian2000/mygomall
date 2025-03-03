@@ -42,6 +42,8 @@ func (s *GetProductService) Run(req *product.GetProductReq) (resp *product.GetPr
 	resp.Product.Description = p.Description
 	resp.Product.Picture = p.Picture
 	resp.Product.Price = p.Price
+	resp.Product.Status = p.Status
+	resp.Product.Store = p.Store
 	//然后再根据商品-类别表查到商品里所属哪些类别
 	c_ids, err := model.GetCategoryIDByProductID(mysql.DB, s.ctx, req.Id)
 	if err != nil {

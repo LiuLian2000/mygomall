@@ -29,10 +29,10 @@ var serviceMethods = map[string]kitex.MethodInfo{
 		false,
 		kitex.WithStreamingMode(kitex.StreamingUnary),
 	),
-	"ReduceProducts": kitex.NewMethodInfo(
-		reduceProductsHandler,
-		newReduceProductsArgs,
-		newReduceProductsResult,
+	"UpdateProducts": kitex.NewMethodInfo(
+		updateProductsHandler,
+		newUpdateProductsArgs,
+		newUpdateProductsResult,
 		false,
 		kitex.WithStreamingMode(kitex.StreamingUnary),
 	),
@@ -422,73 +422,73 @@ func (p *CreateProductsResult) GetResult() interface{} {
 	return p.Success
 }
 
-func reduceProductsHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+func updateProductsHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
 	switch s := arg.(type) {
 	case *streaming.Args:
 		st := s.Stream
-		req := new(product.ReduceProductsReq)
+		req := new(product.UpdateProductsReq)
 		if err := st.RecvMsg(req); err != nil {
 			return err
 		}
-		resp, err := handler.(product.ProductCatalogService).ReduceProducts(ctx, req)
+		resp, err := handler.(product.ProductCatalogService).UpdateProducts(ctx, req)
 		if err != nil {
 			return err
 		}
 		return st.SendMsg(resp)
-	case *ReduceProductsArgs:
-		success, err := handler.(product.ProductCatalogService).ReduceProducts(ctx, s.Req)
+	case *UpdateProductsArgs:
+		success, err := handler.(product.ProductCatalogService).UpdateProducts(ctx, s.Req)
 		if err != nil {
 			return err
 		}
-		realResult := result.(*ReduceProductsResult)
+		realResult := result.(*UpdateProductsResult)
 		realResult.Success = success
 		return nil
 	default:
 		return errInvalidMessageType
 	}
 }
-func newReduceProductsArgs() interface{} {
-	return &ReduceProductsArgs{}
+func newUpdateProductsArgs() interface{} {
+	return &UpdateProductsArgs{}
 }
 
-func newReduceProductsResult() interface{} {
-	return &ReduceProductsResult{}
+func newUpdateProductsResult() interface{} {
+	return &UpdateProductsResult{}
 }
 
-type ReduceProductsArgs struct {
-	Req *product.ReduceProductsReq
+type UpdateProductsArgs struct {
+	Req *product.UpdateProductsReq
 }
 
-func (p *ReduceProductsArgs) FastRead(buf []byte, _type int8, number int32) (n int, err error) {
+func (p *UpdateProductsArgs) FastRead(buf []byte, _type int8, number int32) (n int, err error) {
 	if !p.IsSetReq() {
-		p.Req = new(product.ReduceProductsReq)
+		p.Req = new(product.UpdateProductsReq)
 	}
 	return p.Req.FastRead(buf, _type, number)
 }
 
-func (p *ReduceProductsArgs) FastWrite(buf []byte) (n int) {
+func (p *UpdateProductsArgs) FastWrite(buf []byte) (n int) {
 	if !p.IsSetReq() {
 		return 0
 	}
 	return p.Req.FastWrite(buf)
 }
 
-func (p *ReduceProductsArgs) Size() (n int) {
+func (p *UpdateProductsArgs) Size() (n int) {
 	if !p.IsSetReq() {
 		return 0
 	}
 	return p.Req.Size()
 }
 
-func (p *ReduceProductsArgs) Marshal(out []byte) ([]byte, error) {
+func (p *UpdateProductsArgs) Marshal(out []byte) ([]byte, error) {
 	if !p.IsSetReq() {
 		return out, nil
 	}
 	return proto.Marshal(p.Req)
 }
 
-func (p *ReduceProductsArgs) Unmarshal(in []byte) error {
-	msg := new(product.ReduceProductsReq)
+func (p *UpdateProductsArgs) Unmarshal(in []byte) error {
+	msg := new(product.UpdateProductsReq)
 	if err := proto.Unmarshal(in, msg); err != nil {
 		return err
 	}
@@ -496,59 +496,59 @@ func (p *ReduceProductsArgs) Unmarshal(in []byte) error {
 	return nil
 }
 
-var ReduceProductsArgs_Req_DEFAULT *product.ReduceProductsReq
+var UpdateProductsArgs_Req_DEFAULT *product.UpdateProductsReq
 
-func (p *ReduceProductsArgs) GetReq() *product.ReduceProductsReq {
+func (p *UpdateProductsArgs) GetReq() *product.UpdateProductsReq {
 	if !p.IsSetReq() {
-		return ReduceProductsArgs_Req_DEFAULT
+		return UpdateProductsArgs_Req_DEFAULT
 	}
 	return p.Req
 }
 
-func (p *ReduceProductsArgs) IsSetReq() bool {
+func (p *UpdateProductsArgs) IsSetReq() bool {
 	return p.Req != nil
 }
 
-func (p *ReduceProductsArgs) GetFirstArgument() interface{} {
+func (p *UpdateProductsArgs) GetFirstArgument() interface{} {
 	return p.Req
 }
 
-type ReduceProductsResult struct {
-	Success *product.ReduceProductsResp
+type UpdateProductsResult struct {
+	Success *product.UpdateProductsResp
 }
 
-var ReduceProductsResult_Success_DEFAULT *product.ReduceProductsResp
+var UpdateProductsResult_Success_DEFAULT *product.UpdateProductsResp
 
-func (p *ReduceProductsResult) FastRead(buf []byte, _type int8, number int32) (n int, err error) {
+func (p *UpdateProductsResult) FastRead(buf []byte, _type int8, number int32) (n int, err error) {
 	if !p.IsSetSuccess() {
-		p.Success = new(product.ReduceProductsResp)
+		p.Success = new(product.UpdateProductsResp)
 	}
 	return p.Success.FastRead(buf, _type, number)
 }
 
-func (p *ReduceProductsResult) FastWrite(buf []byte) (n int) {
+func (p *UpdateProductsResult) FastWrite(buf []byte) (n int) {
 	if !p.IsSetSuccess() {
 		return 0
 	}
 	return p.Success.FastWrite(buf)
 }
 
-func (p *ReduceProductsResult) Size() (n int) {
+func (p *UpdateProductsResult) Size() (n int) {
 	if !p.IsSetSuccess() {
 		return 0
 	}
 	return p.Success.Size()
 }
 
-func (p *ReduceProductsResult) Marshal(out []byte) ([]byte, error) {
+func (p *UpdateProductsResult) Marshal(out []byte) ([]byte, error) {
 	if !p.IsSetSuccess() {
 		return out, nil
 	}
 	return proto.Marshal(p.Success)
 }
 
-func (p *ReduceProductsResult) Unmarshal(in []byte) error {
-	msg := new(product.ReduceProductsResp)
+func (p *UpdateProductsResult) Unmarshal(in []byte) error {
+	msg := new(product.UpdateProductsResp)
 	if err := proto.Unmarshal(in, msg); err != nil {
 		return err
 	}
@@ -556,22 +556,22 @@ func (p *ReduceProductsResult) Unmarshal(in []byte) error {
 	return nil
 }
 
-func (p *ReduceProductsResult) GetSuccess() *product.ReduceProductsResp {
+func (p *UpdateProductsResult) GetSuccess() *product.UpdateProductsResp {
 	if !p.IsSetSuccess() {
-		return ReduceProductsResult_Success_DEFAULT
+		return UpdateProductsResult_Success_DEFAULT
 	}
 	return p.Success
 }
 
-func (p *ReduceProductsResult) SetSuccess(x interface{}) {
-	p.Success = x.(*product.ReduceProductsResp)
+func (p *UpdateProductsResult) SetSuccess(x interface{}) {
+	p.Success = x.(*product.UpdateProductsResp)
 }
 
-func (p *ReduceProductsResult) IsSetSuccess() bool {
+func (p *UpdateProductsResult) IsSetSuccess() bool {
 	return p.Success != nil
 }
 
-func (p *ReduceProductsResult) GetResult() interface{} {
+func (p *UpdateProductsResult) GetResult() interface{} {
 	return p.Success
 }
 
@@ -911,11 +911,11 @@ func (p *kClient) CreateProducts(ctx context.Context, Req *product.CreateProduct
 	return _result.GetSuccess(), nil
 }
 
-func (p *kClient) ReduceProducts(ctx context.Context, Req *product.ReduceProductsReq) (r *product.ReduceProductsResp, err error) {
-	var _args ReduceProductsArgs
+func (p *kClient) UpdateProducts(ctx context.Context, Req *product.UpdateProductsReq) (r *product.UpdateProductsResp, err error) {
+	var _args UpdateProductsArgs
 	_args.Req = Req
-	var _result ReduceProductsResult
-	if err = p.c.Call(ctx, "ReduceProducts", &_args, &_result); err != nil {
+	var _result UpdateProductsResult
+	if err = p.c.Call(ctx, "UpdateProducts", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil

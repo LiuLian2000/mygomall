@@ -28,6 +28,7 @@ type Product struct {
 	Picture     string  `json:"picture"`
 	Price       float32 `json:"price"`
 	Store       int64   `json:"store"`
+	Status      bool    `json:"status"`
 }
 
 func (p Product) TableName() string {
@@ -44,6 +45,10 @@ func GetProductByID(db *gorm.DB, ctx context.Context, id int64) (product *Produc
 
 func CreateProduct(db *gorm.DB, ctx context.Context, product *Product) error {
 
+	return db.WithContext(ctx).Create(product).Error
+}
+
+func SearchProduct(db *gorm.DB, ctx context.Context, query string) error {
 	return db.WithContext(ctx).Create(product).Error
 }
 

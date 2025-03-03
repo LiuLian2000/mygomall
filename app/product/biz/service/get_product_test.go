@@ -16,7 +16,7 @@ func TestGetProduct_Run(t *testing.T) {
 
 	// init req and assert value0
 
-	req := &product.GetProductReq{Id: 1896234472328663040}
+	req := &product.GetProductReq{Id: 1896515295200153600}
 
 	t.Run("get_product", func(t *testing.T) {
 		resp, err := NewGetProductService(context.Background()).Run(req)

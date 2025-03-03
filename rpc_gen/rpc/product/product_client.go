@@ -14,7 +14,7 @@ type RPCClient interface {
 	Service() string
 	ListProducts(ctx context.Context, Req *product.ListProductsReq, callOptions ...callopt.Option) (r *product.ListProductsResp, err error)
 	CreateProducts(ctx context.Context, Req *product.CreateProductsReq, callOptions ...callopt.Option) (r *product.CreateProductsResp, err error)
-	ReduceProducts(ctx context.Context, Req *product.ReduceProductsReq, callOptions ...callopt.Option) (r *product.ReduceProductsResp, err error)
+	UpdateProducts(ctx context.Context, Req *product.UpdateProductsReq, callOptions ...callopt.Option) (r *product.UpdateProductsResp, err error)
 	GetProduct(ctx context.Context, Req *product.GetProductReq, callOptions ...callopt.Option) (r *product.GetProductResp, err error)
 	SearchProducts(ctx context.Context, Req *product.SearchProductsReq, callOptions ...callopt.Option) (r *product.SearchProductsResp, err error)
 }
@@ -53,8 +53,8 @@ func (c *clientImpl) CreateProducts(ctx context.Context, Req *product.CreateProd
 	return c.kitexClient.CreateProducts(ctx, Req, callOptions...)
 }
 
-func (c *clientImpl) ReduceProducts(ctx context.Context, Req *product.ReduceProductsReq, callOptions ...callopt.Option) (r *product.ReduceProductsResp, err error) {
-	return c.kitexClient.ReduceProducts(ctx, Req, callOptions...)
+func (c *clientImpl) UpdateProducts(ctx context.Context, Req *product.UpdateProductsReq, callOptions ...callopt.Option) (r *product.UpdateProductsResp, err error) {
+	return c.kitexClient.UpdateProducts(ctx, Req, callOptions...)
 }
 
 func (c *clientImpl) GetProduct(ctx context.Context, Req *product.GetProductReq, callOptions ...callopt.Option) (r *product.GetProductResp, err error) {

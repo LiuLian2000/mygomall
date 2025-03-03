@@ -50,3 +50,10 @@ func (s *ProductCatalogServiceImpl) ReduceProducts(ctx context.Context, req *pro
 
 	return resp, err
 }
+
+// UpdateProducts implements the ProductCatalogServiceImpl interface.
+func (s *ProductCatalogServiceImpl) UpdateProducts(ctx context.Context, req *product.UpdateProductsReq) (resp *product.UpdateProductsResp, err error) {
+	resp, err = service.NewUpdateProductsService(ctx).Run(req)
+
+	return resp, err
+}

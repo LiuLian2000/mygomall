@@ -49,6 +49,11 @@ func (x *Product) FastRead(buf []byte, _type int8, number int32) (offset int, er
 		if err != nil {
 			goto ReadFieldError
 		}
+	case 8:
+		offset, err = x.fastReadField8(buf, _type)
+		if err != nil {
+			goto ReadFieldError
+		}
 	default:
 		offset, err = fastpb.Skip(buf, _type, number)
 		if err != nil {
@@ -99,6 +104,11 @@ func (x *Product) fastReadField7(buf []byte, _type int8) (offset int, err error)
 		return offset, err
 	}
 	x.Categories = append(x.Categories, v)
+	return offset, err
+}
+
+func (x *Product) fastReadField8(buf []byte, _type int8) (offset int, err error) {
+	x.Status, offset, err = fastpb.ReadBool(buf, _type)
 	return offset, err
 }
 
@@ -232,7 +242,7 @@ func (x *CreateProductsResp) fastReadField1(buf []byte, _type int8) (offset int,
 	return offset, err
 }
 
-func (x *ReduceProductsReq) FastRead(buf []byte, _type int8, number int32) (offset int, err error) {
+func (x *UpdateProductsReq) FastRead(buf []byte, _type int8, number int32) (offset int, err error) {
 	switch number {
 	case 1:
 		offset, err = x.fastReadField1(buf, _type)
@@ -249,10 +259,10 @@ func (x *ReduceProductsReq) FastRead(buf []byte, _type int8, number int32) (offs
 SkipFieldError:
 	return offset, fmt.Errorf("%T cannot parse invalid wire-format data, error: %s", x, err)
 ReadFieldError:
-	return offset, fmt.Errorf("%T read field %d '%s' error: %s", x, number, fieldIDToName_ReduceProductsReq[number], err)
+	return offset, fmt.Errorf("%T read field %d '%s' error: %s", x, number, fieldIDToName_UpdateProductsReq[number], err)
 }
 
-func (x *ReduceProductsReq) fastReadField1(buf []byte, _type int8) (offset int, err error) {
+func (x *UpdateProductsReq) fastReadField1(buf []byte, _type int8) (offset int, err error) {
 	var v Product
 	offset, err = fastpb.ReadMessage(buf, _type, &v)
 	if err != nil {
@@ -262,7 +272,7 @@ func (x *ReduceProductsReq) fastReadField1(buf []byte, _type int8) (offset int, 
 	return offset, nil
 }
 
-func (x *ReduceProductsResp) FastRead(buf []byte, _type int8, number int32) (offset int, err error) {
+func (x *UpdateProductsResp) FastRead(buf []byte, _type int8, number int32) (offset int, err error) {
 	switch number {
 	case 1:
 		offset, err = x.fastReadField1(buf, _type)
@@ -279,10 +289,10 @@ func (x *ReduceProductsResp) FastRead(buf []byte, _type int8, number int32) (off
 SkipFieldError:
 	return offset, fmt.Errorf("%T cannot parse invalid wire-format data, error: %s", x, err)
 ReadFieldError:
-	return offset, fmt.Errorf("%T read field %d '%s' error: %s", x, number, fieldIDToName_ReduceProductsResp[number], err)
+	return offset, fmt.Errorf("%T read field %d '%s' error: %s", x, number, fieldIDToName_UpdateProductsResp[number], err)
 }
 
-func (x *ReduceProductsResp) fastReadField1(buf []byte, _type int8) (offset int, err error) {
+func (x *UpdateProductsResp) fastReadField1(buf []byte, _type int8) (offset int, err error) {
 	x.Id, offset, err = fastpb.ReadInt64(buf, _type)
 	return offset, err
 }
@@ -408,6 +418,7 @@ func (x *Product) FastWrite(buf []byte) (offset int) {
 	offset += x.fastWriteField5(buf[offset:])
 	offset += x.fastWriteField6(buf[offset:])
 	offset += x.fastWriteField7(buf[offset:])
+	offset += x.fastWriteField8(buf[offset:])
 	return offset
 }
 
@@ -466,6 +477,14 @@ func (x *Product) fastWriteField7(buf []byte) (offset int) {
 	for i := range x.GetCategories() {
 		offset += fastpb.WriteString(buf[offset:], 7, x.GetCategories()[i])
 	}
+	return offset
+}
+
+func (x *Product) fastWriteField8(buf []byte) (offset int) {
+	if !x.Status {
+		return offset
+	}
+	offset += fastpb.WriteBool(buf[offset:], 8, x.GetStatus())
 	return offset
 }
 
@@ -553,7 +572,7 @@ func (x *CreateProductsResp) fastWriteField1(buf []byte) (offset int) {
 	return offset
 }
 
-func (x *ReduceProductsReq) FastWrite(buf []byte) (offset int) {
+func (x *UpdateProductsReq) FastWrite(buf []byte) (offset int) {
 	if x == nil {
 		return offset
 	}
@@ -561,7 +580,7 @@ func (x *ReduceProductsReq) FastWrite(buf []byte) (offset int) {
 	return offset
 }
 
-func (x *ReduceProductsReq) fastWriteField1(buf []byte) (offset int) {
+func (x *UpdateProductsReq) fastWriteField1(buf []byte) (offset int) {
 	if x.Product == nil {
 		return offset
 	}
@@ -569,7 +588,7 @@ func (x *ReduceProductsReq) fastWriteField1(buf []byte) (offset int) {
 	return offset
 }
 
-func (x *ReduceProductsResp) FastWrite(buf []byte) (offset int) {
+func (x *UpdateProductsResp) FastWrite(buf []byte) (offset int) {
 	if x == nil {
 		return offset
 	}
@@ -577,7 +596,7 @@ func (x *ReduceProductsResp) FastWrite(buf []byte) (offset int) {
 	return offset
 }
 
-func (x *ReduceProductsResp) fastWriteField1(buf []byte) (offset int) {
+func (x *UpdateProductsResp) fastWriteField1(buf []byte) (offset int) {
 	if x.Id == 0 {
 		return offset
 	}
@@ -662,6 +681,7 @@ func (x *Product) Size() (n int) {
 	n += x.sizeField5()
 	n += x.sizeField6()
 	n += x.sizeField7()
+	n += x.sizeField8()
 	return n
 }
 
@@ -720,6 +740,14 @@ func (x *Product) sizeField7() (n int) {
 	for i := range x.GetCategories() {
 		n += fastpb.SizeString(7, x.GetCategories()[i])
 	}
+	return n
+}
+
+func (x *Product) sizeField8() (n int) {
+	if !x.Status {
+		return n
+	}
+	n += fastpb.SizeBool(8, x.GetStatus())
 	return n
 }
 
@@ -807,7 +835,7 @@ func (x *CreateProductsResp) sizeField1() (n int) {
 	return n
 }
 
-func (x *ReduceProductsReq) Size() (n int) {
+func (x *UpdateProductsReq) Size() (n int) {
 	if x == nil {
 		return n
 	}
@@ -815,7 +843,7 @@ func (x *ReduceProductsReq) Size() (n int) {
 	return n
 }
 
-func (x *ReduceProductsReq) sizeField1() (n int) {
+func (x *UpdateProductsReq) sizeField1() (n int) {
 	if x.Product == nil {
 		return n
 	}
@@ -823,7 +851,7 @@ func (x *ReduceProductsReq) sizeField1() (n int) {
 	return n
 }
 
-func (x *ReduceProductsResp) Size() (n int) {
+func (x *UpdateProductsResp) Size() (n int) {
 	if x == nil {
 		return n
 	}
@@ -831,7 +859,7 @@ func (x *ReduceProductsResp) Size() (n int) {
 	return n
 }
 
-func (x *ReduceProductsResp) sizeField1() (n int) {
+func (x *UpdateProductsResp) sizeField1() (n int) {
 	if x.Id == 0 {
 		return n
 	}
@@ -913,6 +941,7 @@ var fieldIDToName_Product = map[int32]string{
 	5: "Price",
 	6: "Store",
 	7: "Categories",
+	8: "Status",
 }
 
 var fieldIDToName_ListProductsReq = map[int32]string{
@@ -933,11 +962,11 @@ var fieldIDToName_CreateProductsResp = map[int32]string{
 	1: "Id",
 }
 
-var fieldIDToName_ReduceProductsReq = map[int32]string{
+var fieldIDToName_UpdateProductsReq = map[int32]string{
 	1: "Product",
 }
 
-var fieldIDToName_ReduceProductsResp = map[int32]string{
+var fieldIDToName_UpdateProductsResp = map[int32]string{
 	1: "Id",
 }
 

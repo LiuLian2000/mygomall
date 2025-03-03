@@ -6,12 +6,12 @@ import (
 	product "github.com/Group-lifelong-youth-training/mygomall/rpc_gen/kitex_gen/product"
 )
 
-func TestReduceProducts_Run(t *testing.T) {
+func TestUpdateProducts_Run(t *testing.T) {
 	ctx := context.Background()
-	s := NewReduceProductsService(ctx)
+	s := NewUpdateProductsService(ctx)
 	// init req and assert value
 
-	req := &product.ReduceProductsReq{}
+	req := &product.UpdateProductsReq{}
 	resp, err := s.Run(req)
 	t.Logf("err: %v", err)
 	t.Logf("resp: %v", resp)

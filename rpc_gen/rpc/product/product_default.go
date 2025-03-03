@@ -25,10 +25,10 @@ func CreateProducts(ctx context.Context, req *product.CreateProductsReq, callOpt
 	return resp, nil
 }
 
-func ReduceProducts(ctx context.Context, req *product.ReduceProductsReq, callOptions ...callopt.Option) (resp *product.ReduceProductsResp, err error) {
-	resp, err = defaultClient.ReduceProducts(ctx, req, callOptions...)
+func UpdateProducts(ctx context.Context, req *product.UpdateProductsReq, callOptions ...callopt.Option) (resp *product.UpdateProductsResp, err error) {
+	resp, err = defaultClient.UpdateProducts(ctx, req, callOptions...)
 	if err != nil {
-		klog.CtxErrorf(ctx, "ReduceProducts call failed,err =%+v", err)
+		klog.CtxErrorf(ctx, "UpdateProducts call failed,err =%+v", err)
 		return nil, err
 	}
 	return resp, nil

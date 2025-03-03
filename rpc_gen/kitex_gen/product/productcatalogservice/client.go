@@ -13,7 +13,7 @@ import (
 type Client interface {
 	ListProducts(ctx context.Context, Req *product.ListProductsReq, callOptions ...callopt.Option) (r *product.ListProductsResp, err error)
 	CreateProducts(ctx context.Context, Req *product.CreateProductsReq, callOptions ...callopt.Option) (r *product.CreateProductsResp, err error)
-	ReduceProducts(ctx context.Context, Req *product.ReduceProductsReq, callOptions ...callopt.Option) (r *product.ReduceProductsResp, err error)
+	UpdateProducts(ctx context.Context, Req *product.UpdateProductsReq, callOptions ...callopt.Option) (r *product.UpdateProductsResp, err error)
 	GetProduct(ctx context.Context, Req *product.GetProductReq, callOptions ...callopt.Option) (r *product.GetProductResp, err error)
 	SearchProducts(ctx context.Context, Req *product.SearchProductsReq, callOptions ...callopt.Option) (r *product.SearchProductsResp, err error)
 }
@@ -57,9 +57,9 @@ func (p *kProductCatalogServiceClient) CreateProducts(ctx context.Context, Req *
 	return p.kClient.CreateProducts(ctx, Req)
 }
 
-func (p *kProductCatalogServiceClient) ReduceProducts(ctx context.Context, Req *product.ReduceProductsReq, callOptions ...callopt.Option) (r *product.ReduceProductsResp, err error) {
+func (p *kProductCatalogServiceClient) UpdateProducts(ctx context.Context, Req *product.UpdateProductsReq, callOptions ...callopt.Option) (r *product.UpdateProductsResp, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
-	return p.kClient.ReduceProducts(ctx, Req)
+	return p.kClient.UpdateProducts(ctx, Req)
 }
 
 func (p *kProductCatalogServiceClient) GetProduct(ctx context.Context, Req *product.GetProductReq, callOptions ...callopt.Option) (r *product.GetProductResp, err error) {
