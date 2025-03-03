@@ -16,6 +16,7 @@ package model
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/Group-lifelong-youth-training/mygomall/pkg/utils"
 	"gorm.io/gorm"
@@ -48,8 +49,9 @@ func CreateProduct(db *gorm.DB, ctx context.Context, product *Product) error {
 	return db.WithContext(ctx).Create(product).Error
 }
 
-func SearchProduct(db *gorm.DB, ctx context.Context, query string) error {
-	return db.WithContext(ctx).Create(product).Error
+func SearchProduct(db *gorm.DB, ctx context.Context, query string) (product []Product, err error) {
+	err = db.WithContext(ctx).Model(&Product{}).Where("name REGEXP ?", fmt.Sprintf("^.*%s.*$", query)).Find(&product).Error
+	return
 }
 
 func (p *Product) BeforeCreate(tx *gorm.DB) (err error) {

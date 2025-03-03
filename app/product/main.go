@@ -1,22 +1,33 @@
 package main
 
 import (
+	"context"
 	"net"
 	"time"
 
+	"github.com/Group-lifelong-youth-training/mygomall/app/auth/biz/dal"
+	"github.com/Group-lifelong-youth-training/mygomall/app/order/infra/mq"
+	"github.com/Group-lifelong-youth-training/mygomall/app/product/conf"
+	"github.com/Group-lifelong-youth-training/mygomall/pkg/mtl"
+	"github.com/Group-lifelong-youth-training/mygomall/rpc_gen/kitex_gen/product/productcatalogservice"
 	"github.com/cloudwego/kitex/pkg/klog"
 	"github.com/cloudwego/kitex/pkg/rpcinfo"
 	"github.com/cloudwego/kitex/server"
 	kitexlogrus "github.com/kitex-contrib/obs-opentelemetry/logging/logrus"
-	"github.com/Group-lifelong-youth-training/mygomall/app/product/conf"
-	"github.com/Group-lifelong-youth-training/mygomall/rpc_gen/kitex_gen/product/productcatalogservice"
 	"go.uber.org/zap/zapcore"
 	"gopkg.in/natefinch/lumberjack.v2"
 )
 
 func main() {
+	serviceName := conf.GetConf().Kitex.Service
+	mtl.InitMetric(serviceName, conf.GetConf().Kitex.MetricsPort, conf.GetConf().Registry.RegistryAddress[0])
+	p := mtl.InitTracing(serviceName)
+	defer p.Shutdown(context.Background())
+	dal.Init()
+	defer dal.Shutdown()
 	opts := kitexInit()
-
+	mq.Init()
+	defer mq.Shutdown()
 	svr := productcatalogservice.NewServer(new(ProductCatalogServiceImpl), opts...)
 
 	err := svr.Run()
