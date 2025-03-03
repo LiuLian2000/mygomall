@@ -16,6 +16,24 @@ func ListProducts(ctx context.Context, req *product.ListProductsReq, callOptions
 	return resp, nil
 }
 
+func CreateProducts(ctx context.Context, req *product.CreateProductsReq, callOptions ...callopt.Option) (resp *product.CreateProductsResp, err error) {
+	resp, err = defaultClient.CreateProducts(ctx, req, callOptions...)
+	if err != nil {
+		klog.CtxErrorf(ctx, "CreateProducts call failed,err =%+v", err)
+		return nil, err
+	}
+	return resp, nil
+}
+
+func ReduceProducts(ctx context.Context, req *product.ReduceProductsReq, callOptions ...callopt.Option) (resp *product.ReduceProductsResp, err error) {
+	resp, err = defaultClient.ReduceProducts(ctx, req, callOptions...)
+	if err != nil {
+		klog.CtxErrorf(ctx, "ReduceProducts call failed,err =%+v", err)
+		return nil, err
+	}
+	return resp, nil
+}
+
 func GetProduct(ctx context.Context, req *product.GetProductReq, callOptions ...callopt.Option) (resp *product.GetProductResp, err error) {
 	resp, err = defaultClient.GetProduct(ctx, req, callOptions...)
 	if err != nil {

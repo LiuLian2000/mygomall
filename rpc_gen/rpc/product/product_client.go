@@ -13,6 +13,8 @@ type RPCClient interface {
 	KitexClient() productcatalogservice.Client
 	Service() string
 	ListProducts(ctx context.Context, Req *product.ListProductsReq, callOptions ...callopt.Option) (r *product.ListProductsResp, err error)
+	CreateProducts(ctx context.Context, Req *product.CreateProductsReq, callOptions ...callopt.Option) (r *product.CreateProductsResp, err error)
+	ReduceProducts(ctx context.Context, Req *product.ReduceProductsReq, callOptions ...callopt.Option) (r *product.ReduceProductsResp, err error)
 	GetProduct(ctx context.Context, Req *product.GetProductReq, callOptions ...callopt.Option) (r *product.GetProductResp, err error)
 	SearchProducts(ctx context.Context, Req *product.SearchProductsReq, callOptions ...callopt.Option) (r *product.SearchProductsResp, err error)
 }
@@ -45,6 +47,14 @@ func (c *clientImpl) KitexClient() productcatalogservice.Client {
 
 func (c *clientImpl) ListProducts(ctx context.Context, Req *product.ListProductsReq, callOptions ...callopt.Option) (r *product.ListProductsResp, err error) {
 	return c.kitexClient.ListProducts(ctx, Req, callOptions...)
+}
+
+func (c *clientImpl) CreateProducts(ctx context.Context, Req *product.CreateProductsReq, callOptions ...callopt.Option) (r *product.CreateProductsResp, err error) {
+	return c.kitexClient.CreateProducts(ctx, Req, callOptions...)
+}
+
+func (c *clientImpl) ReduceProducts(ctx context.Context, Req *product.ReduceProductsReq, callOptions ...callopt.Option) (r *product.ReduceProductsResp, err error) {
+	return c.kitexClient.ReduceProducts(ctx, Req, callOptions...)
 }
 
 func (c *clientImpl) GetProduct(ctx context.Context, Req *product.GetProductReq, callOptions ...callopt.Option) (r *product.GetProductResp, err error) {

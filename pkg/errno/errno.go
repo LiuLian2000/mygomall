@@ -24,6 +24,11 @@ const (
 	UnauthorizedDeliverRequestErrCode = 12001
 	// Order ErrCode
 	UnauthorizedUpdateOrderStatusRequestErrCode = 13001
+	// Product ErrCode
+	ProductNotExistErrCode           = 14001
+	ProductToCategoryNotExistErrCode = 14002
+	CategoryNotExistErrCode          = 14003
+	CategoryProductEmptyErrCode      = 14004
 )
 
 type ErrNo struct {
@@ -56,6 +61,10 @@ var (
 	WrongPasswordErr                        = NewErrNo(WrongPasswordErrCode, "Wrong Password")
 	ConfirmPasswordMismatchErr              = NewErrNo(ConfirmPasswordMismatchErrCode, "Confirm Password Mismatch")
 	UnauthorizedUpdateOrderStatusRequestErr = NewErrNo(UnauthorizedUpdateOrderStatusRequestErrCode, "Changed Order Status Request Not From Checkout")
+	ProductNotExistErr                      = NewErrNo(ProductNotExistErrCode, "Product does not exists")
+	ProductToCategoryNotExistErr            = NewErrNo(ProductToCategoryNotExistErrCode, "This Product does not exist Categories")
+	CategoryNotExistErr                     = NewErrNo(CategoryNotExistErrCode, "Category does not exists")
+	CategoryProductEmptyErr                 = NewErrNo(CategoryProductEmptyErrCode, "This Category does have any product")
 )
 
 // ConvertErr convert error to Errno

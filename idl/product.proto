@@ -6,6 +6,8 @@ option go_package = "/product";
 
 service ProductCatalogService {
   rpc ListProducts(ListProductsReq) returns (ListProductsResp) {}
+  rpc CreateProducts(CreateProductsReq) returns(CreateProductsResp){}
+  rpc ReduceProducts(ReduceProductsReq) returns(ReduceProductsResp){}
   rpc GetProduct(GetProductReq) returns (GetProductResp) {}
   rpc SearchProducts(SearchProductsReq) returns (SearchProductsResp) {}
 }
@@ -13,13 +15,13 @@ service ProductCatalogService {
 
 
 message Product {
-  uint32 id = 1;
+  int64 id = 1;
   string name = 2;
   string description = 3;
   string picture = 4;
   float price = 5;
-
-  repeated string categories = 6;
+  int64 store = 6;
+  repeated string categories = 7;
 }
 message ListProductsReq{
   int32 page = 1;
@@ -30,9 +32,21 @@ message ListProductsReq{
 message ListProductsResp {
   repeated Product products = 1;
 }
+message CreateProductsReq{
+  Product product = 1;
+}
+message CreateProductsResp {
+  int64 id = 1;
+}
+message ReduceProductsReq{
+  Product product = 1;
+}
+message ReduceProductsResp {
+  int64 id = 1;
+}
 
 message GetProductReq {
-  uint32 id = 1;
+  int64 id = 1;
 }
 
 message GetProductResp {

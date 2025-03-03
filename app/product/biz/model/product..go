@@ -14,21 +14,20 @@
 
 package model
 
-import time
+import (
+	"context"
+
+	"github.com/Group-lifelong-youth-training/mygomall/pkg/utils"
+	"gorm.io/gorm"
+)
 
 type Product struct {
 	Base
-	Name        string   `json:"name"`
-	Description string   `json:"description"`
-	Picture     string   `json:"picture"`
-	Price       float32  `json:"price"`
-	Categories  []string `json:"categories"`
-}
-type Category struct {
-	Base
-	Name        string    `gorm:"unique" json:"name"`
-	Description string    `json:"description"`
-	
+	Name        string  `json:"name"`
+	Description string  `json:"description"`
+	Picture     string  `json:"picture"`
+	Price       float32 `json:"price"`
+	Store       int64   `json:"store"`
 }
 
 func (p Product) TableName() string {
@@ -36,29 +35,20 @@ func (p Product) TableName() string {
 }
 
 func GetProductByID(db *gorm.DB, ctx context.Context, id int64) (product *Product, err error) {
-	err = db.WithContext(ctx).Model(&Product{}).Where(&Product{Base:{ID:id}}).First(&product).Error
-	return
-}
-
-func GetCategoryByName(db *gorm.DB, ctx context.Context, name string) (category *Category, err error) {
-	err = db.WithContext(ctx).Model(&Category{}).Where(&Category{Name: name}).First(&category).Error
+	p := Product{}
+	p.Base.ID = id
+	err = db.WithContext(ctx).Model(&Product{}).Where(&p).First(&product).Error
+	product.ID = id
 	return
 }
 
 func CreateProduct(db *gorm.DB, ctx context.Context, product *Product) error {
-	return db.WithContext(ctx).Create(product).Error
-}
 
-func CreateCategory(db *gorm.DB, ctx context.Context, category *Category) error {
-	return db.WithContext(ctx).Create(category).Error
+	return db.WithContext(ctx).Create(product).Error
 }
 
 func (p *Product) BeforeCreate(tx *gorm.DB) (err error) {
 	p.Base.ID, _ = utils.GenerateID() // 使用 Snowflake 算法生成 ID
-	return
-}
 
-func (c *Category) BeforeCreate(tx *gorm.DB) (err error) {
-	c.Base.ID, _ = utils.GenerateID() // 使用 Snowflake 算法生成 ID
 	return
 }

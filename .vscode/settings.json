@@ -1,0 +1,9 @@
+{
+    "postman.settings.dotenv-detection-notification-visibility": false,
+    "makefile.configureOnOpen": false,
+    "go.terminal.activateEnvironment": false,
+    "remote.WSL.useShellEnvironment": false,
+    "terminal.integrated.env.linux": {
+        "PATH":"/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/wsl/lib:/mnt/e/ENV/python3.12.8/Scripts/:/mnt/e/ENV/python3.12.8/:/mnt/e/软件/VMware Workstation/bin/:/mnt/c/Windows/system32:/mnt/c/Windows:/mnt/c/Windows/System32/Wbem:/mnt/c/Windows/System32/WindowsPowerShell/v1.0/:/mnt/c/Windows/System32/OpenSSH/:/mnt/e/软件/Git/cmd:/mnt/e/Program Files/matlab/bin:/mnt/c/Users/10767/AppData/Local/Microsoft/WindowsApps:/mnt/e/软件/Microsoft VS Code/bin:/mnt/e/软件/GoLand 2024.3.1/bin:/mnt/e/ENV/Go/bin:/mnt/e/ENV/gopath/bin:/mnt/e/软件/DataGrip 2024.3.3/bin:/mnt/e/Program Files/JetBrains Gateway 2024.3.3/bin:/snap/bin:/usr/local/go/bin:/root/go/bin:/root/go/bin:/usr/local/go/bin:/usr/local/go/bin:/root/go/bin:/usr/local/go/bin"
+    }
+}

@@ -12,6 +12,8 @@ import (
 // Client is designed to provide IDL-compatible methods with call-option parameter for kitex framework.
 type Client interface {
 	ListProducts(ctx context.Context, Req *product.ListProductsReq, callOptions ...callopt.Option) (r *product.ListProductsResp, err error)
+	CreateProducts(ctx context.Context, Req *product.CreateProductsReq, callOptions ...callopt.Option) (r *product.CreateProductsResp, err error)
+	ReduceProducts(ctx context.Context, Req *product.ReduceProductsReq, callOptions ...callopt.Option) (r *product.ReduceProductsResp, err error)
 	GetProduct(ctx context.Context, Req *product.GetProductReq, callOptions ...callopt.Option) (r *product.GetProductResp, err error)
 	SearchProducts(ctx context.Context, Req *product.SearchProductsReq, callOptions ...callopt.Option) (r *product.SearchProductsResp, err error)
 }
@@ -48,6 +50,16 @@ type kProductCatalogServiceClient struct {
 func (p *kProductCatalogServiceClient) ListProducts(ctx context.Context, Req *product.ListProductsReq, callOptions ...callopt.Option) (r *product.ListProductsResp, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.ListProducts(ctx, Req)
+}
+
+func (p *kProductCatalogServiceClient) CreateProducts(ctx context.Context, Req *product.CreateProductsReq, callOptions ...callopt.Option) (r *product.CreateProductsResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.CreateProducts(ctx, Req)
+}
+
+func (p *kProductCatalogServiceClient) ReduceProducts(ctx context.Context, Req *product.ReduceProductsReq, callOptions ...callopt.Option) (r *product.ReduceProductsResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.ReduceProducts(ctx, Req)
 }
 
 func (p *kProductCatalogServiceClient) GetProduct(ctx context.Context, Req *product.GetProductReq, callOptions ...callopt.Option) (r *product.GetProductResp, err error) {

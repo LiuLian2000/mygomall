@@ -1,5 +1,7 @@
 *.log
 consuldata/
-
+.vscode/
+.idea/
+.git/
 test/
 rabbitmq/

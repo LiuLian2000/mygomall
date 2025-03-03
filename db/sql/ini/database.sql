@@ -95,7 +95,7 @@ CREATE TABLE IF NOT EXISTS `order_item` (
 --   KEY `idx_order_item_order_id_refer` (`order_id_refer`),
 --   CONSTRAINT `fk_order_order_items` FOREIGN KEY (`order_id_refer`) REFERENCES `order` (`id`)
 -- ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+
 
 
 #product service database
@@ -109,15 +109,27 @@ CREATE TABLE IF NOT EXISTS `product` (
   `id` BIGINT NOT NULL,
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `name` VARCHAR(255) NOT NULL,
+  `name` VARCHAR(255) NOT NULL UNIQUE,
   `description` TEXT,
   `picture` VARCHAR(255),
   `price` FLOAT NOT NULL,
-  `categories` JSON,
+  `store` INT NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
-#商品类别表
 
+#多对多 商品-类别表
+CREATE TABLE IF NOT EXISTS `product_category` (
+    `id` BIGINT NOT NULL,
+    `product_id` BIGINT NOT NULL,
+    `category_id` BIGINT NOT NULL,
+    `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    
+    `description` TEXT,
+    PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+
+#类别表
 CREATE TABLE IF NOT EXISTS `category` (
     `id` BIGINT NOT NULL,
     `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
