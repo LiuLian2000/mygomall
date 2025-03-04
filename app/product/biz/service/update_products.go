@@ -2,6 +2,7 @@ package service
 
 import (
 	"context"
+
 	product "github.com/Group-lifelong-youth-training/mygomall/rpc_gen/kitex_gen/product"
 )
 

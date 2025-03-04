@@ -20,7 +20,7 @@ message Product {
   string description = 3;
   string picture = 4;
   float price = 5;
-  int64 store = 6;
+  int32 store = 6;//库存
   repeated string categories = 7;
   bool status = 8;//商品状态：可出售/不可出售
 }
@@ -40,7 +40,7 @@ message CreateProductsResp {
   int64 id = 1;
 }
 message UpdateProductsReq{
-  Product product = 1;
+  int64 product_id = 1;
 }
 message UpdateProductsResp {
   int64 id = 1;

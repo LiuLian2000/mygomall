@@ -5,9 +5,9 @@ import (
 	"net"
 	"time"
 
-	"github.com/Group-lifelong-youth-training/mygomall/app/auth/biz/dal"
-	"github.com/Group-lifelong-youth-training/mygomall/app/order/infra/mq"
+	"github.com/Group-lifelong-youth-training/mygomall/app/product/biz/dal"
 	"github.com/Group-lifelong-youth-training/mygomall/app/product/conf"
+	"github.com/Group-lifelong-youth-training/mygomall/app/product/infra/mq"
 	"github.com/Group-lifelong-youth-training/mygomall/pkg/mtl"
 	"github.com/Group-lifelong-youth-training/mygomall/rpc_gen/kitex_gen/product/productcatalogservice"
 	"github.com/cloudwego/kitex/pkg/klog"
@@ -27,6 +27,7 @@ func main() {
 	defer dal.Shutdown()
 	opts := kitexInit()
 	mq.Init()
+	go mq.Consume()
 	defer mq.Shutdown()
 	svr := productcatalogservice.NewServer(new(ProductCatalogServiceImpl), opts...)
 

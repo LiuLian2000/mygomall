@@ -17,43 +17,41 @@ import (
 	"context"
 	"log"
 
+	"github.com/Group-lifelong-youth-training/mygomall/app/product/biz/dal"
 	"github.com/Group-lifelong-youth-training/mygomall/app/product/biz/dal/mysql"
 	"github.com/Group-lifelong-youth-training/mygomall/app/product/biz/model"
+	"github.com/Group-lifelong-youth-training/mygomall/app/product/infra/mq"
+	"gorm.io/gorm"
 )
 
 // 插入几条数据测试
+var (
+	db  *gorm.DB
+	ctx context.Context
+)
 
-func main() {
-	mysql.Init()
+func insertData() {
 
-	// //自动迁移
-	// if err := mysql.DB.AutoMigrate(&model.Product{}); err != nil {
-	// 	log.Fatalf("AutoMigrate failed: %v", err)
-	// }
-
-	sql, err := mysql.DB.DB()
-	if err != nil {
-		log.Fatal("DB() fault")
-	}
-	defer sql.Close()
 	ctx := context.Background()
 
 	ps := []model.Product{
 		{
-			Base:        model.Base{ID: 123}, // 如果不需要手动设置 ID，可以去掉
+			Base:        model.Base{ID: 100}, // 如果不需要手动设置 ID，可以去掉
 			Name:        "test1",
 			Description: "456",
-
-			Price:   33.0,
-			Picture: "666",
+			Store:       10,
+			Price:       33.0,
+			Picture:     "665",
+			Status:      true,
 		},
 		{
-			Base:        model.Base{ID: 456}, // 同上
+			Base:        model.Base{ID: 200}, // 同上
 			Name:        "test2",
 			Description: "457",
-
-			Price:   34.0,
-			Picture: "666",
+			Store:       20,
+			Price:       34.0,
+			Picture:     "666",
+			Status:      true,
 		},
 	}
 	log.Printf("ps:%v\n", ps)
@@ -62,14 +60,20 @@ func main() {
 	for _, p := range ps {
 
 		if err := model.CreateProduct(mysql.DB, ctx, &p); err != nil {
-			log.Fatalf("Error creating product %s: %v", p.Name, err)
+			log.Printf("Error creating product %s: %v", p.Name, err)
 		}
 	}
-	// mysql.Init()
-	// ctx := context.Background()
-	// s := service.NewGetProductService(ctx)
-	// req := &product.GetProductReq{Id: 1896234472328663040}
-	// resp, err := s.Run(req)
-	// log.Printf("resp:%v\n err:%v\n", resp, err)
+}
+
+func main() {
+	dal.Init()
+	ctx = context.Background()
+	insertData()
+
+	mq.Init()
+	mq.Consume()
+
+	defer dal.Shutdown()
+	defer mq.Shutdown()
 
 }

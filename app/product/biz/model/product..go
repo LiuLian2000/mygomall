@@ -16,8 +16,11 @@ package model
 
 import (
 	"context"
+	"errors"
 	"fmt"
+	"log"
 
+	"github.com/Group-lifelong-youth-training/mygomall/pkg/errno"
 	"github.com/Group-lifelong-youth-training/mygomall/pkg/utils"
 	"gorm.io/gorm"
 )
@@ -28,7 +31,7 @@ type Product struct {
 	Description string  `json:"description"`
 	Picture     string  `json:"picture"`
 	Price       float32 `json:"price"`
-	Store       int64   `json:"store"`
+	Store       int32   `json:"store"`
 	Status      bool    `json:"status"`
 }
 
@@ -40,13 +43,20 @@ func GetProductByID(db *gorm.DB, ctx context.Context, id int64) (product *Produc
 	p := Product{}
 	p.Base.ID = id
 	err = db.WithContext(ctx).Model(&Product{}).Where(&p).First(&product).Error
-	product.ID = id
+
 	return
 }
 
 func CreateProduct(db *gorm.DB, ctx context.Context, product *Product) error {
-
-	return db.WithContext(ctx).Create(product).Error
+	_, err := GetProductByID(db, ctx, product.Base.ID)
+	log.Println(product.ID)
+	if err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			return db.WithContext(ctx).Model(&Product{}).Create(product).Error
+		}
+		return err
+	}
+	return errno.ProductAlreadyExistErr
 }
 
 func SearchProduct(db *gorm.DB, ctx context.Context, query string) (product []Product, err error) {
@@ -54,8 +64,27 @@ func SearchProduct(db *gorm.DB, ctx context.Context, query string) (product []Pr
 	return
 }
 
+func ReduceProductStorebyID(db *gorm.DB, ctx context.Context, product_id int64, amount int32) (newStore int32, err error) {
+
+	p, err := GetProductByID(db, ctx, product_id)
+
+	if err != nil {
+		return -1, err
+	}
+	log.Printf("store:%vamount:%v", p.Store, amount)
+	newStore = p.Store - amount
+	if newStore < 0 {
+		err = errno.ProductStoreNotEnoughErr
+		return -1, err
+	}
+	err = db.WithContext(ctx).Model(&Product{}).Where(&Product{Base: Base{ID: product_id}}).Update("store", newStore).Error
+	return
+}
+
 func (p *Product) BeforeCreate(tx *gorm.DB) (err error) {
-	p.Base.ID, _ = utils.GenerateID() // 使用 Snowflake 算法生成 ID
+	if p.Base.ID == 0 {
+		p.Base.ID, _ = utils.GenerateID() // 使用 Snowflake 算法生成 ID
+	}
 
 	return
 }

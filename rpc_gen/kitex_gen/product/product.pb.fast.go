@@ -93,7 +93,7 @@ func (x *Product) fastReadField5(buf []byte, _type int8) (offset int, err error)
 }
 
 func (x *Product) fastReadField6(buf []byte, _type int8) (offset int, err error) {
-	x.Store, offset, err = fastpb.ReadInt64(buf, _type)
+	x.Store, offset, err = fastpb.ReadInt32(buf, _type)
 	return offset, err
 }
 
@@ -263,13 +263,8 @@ ReadFieldError:
 }
 
 func (x *UpdateProductsReq) fastReadField1(buf []byte, _type int8) (offset int, err error) {
-	var v Product
-	offset, err = fastpb.ReadMessage(buf, _type, &v)
-	if err != nil {
-		return offset, err
-	}
-	x.Product = &v
-	return offset, nil
+	x.ProductId, offset, err = fastpb.ReadInt64(buf, _type)
+	return offset, err
 }
 
 func (x *UpdateProductsResp) FastRead(buf []byte, _type int8, number int32) (offset int, err error) {
@@ -466,7 +461,7 @@ func (x *Product) fastWriteField6(buf []byte) (offset int) {
 	if x.Store == 0 {
 		return offset
 	}
-	offset += fastpb.WriteInt64(buf[offset:], 6, x.GetStore())
+	offset += fastpb.WriteInt32(buf[offset:], 6, x.GetStore())
 	return offset
 }
 
@@ -581,10 +576,10 @@ func (x *UpdateProductsReq) FastWrite(buf []byte) (offset int) {
 }
 
 func (x *UpdateProductsReq) fastWriteField1(buf []byte) (offset int) {
-	if x.Product == nil {
+	if x.ProductId == 0 {
 		return offset
 	}
-	offset += fastpb.WriteMessage(buf[offset:], 1, x.GetProduct())
+	offset += fastpb.WriteInt64(buf[offset:], 1, x.GetProductId())
 	return offset
 }
 
@@ -729,7 +724,7 @@ func (x *Product) sizeField6() (n int) {
 	if x.Store == 0 {
 		return n
 	}
-	n += fastpb.SizeInt64(6, x.GetStore())
+	n += fastpb.SizeInt32(6, x.GetStore())
 	return n
 }
 
@@ -844,10 +839,10 @@ func (x *UpdateProductsReq) Size() (n int) {
 }
 
 func (x *UpdateProductsReq) sizeField1() (n int) {
-	if x.Product == nil {
+	if x.ProductId == 0 {
 		return n
 	}
-	n += fastpb.SizeMessage(1, x.GetProduct())
+	n += fastpb.SizeInt64(1, x.GetProductId())
 	return n
 }
 
@@ -963,7 +958,7 @@ var fieldIDToName_CreateProductsResp = map[int32]string{
 }
 
 var fieldIDToName_UpdateProductsReq = map[int32]string{
-	1: "Product",
+	1: "ProductId",
 }
 
 var fieldIDToName_UpdateProductsResp = map[int32]string{
