@@ -629,108 +629,6 @@ func (x *ListOrderResp) GetBaseResp() *base.BaseResp {
 	return nil
 }
 
-type MarkOrderPaidReq struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	UserId  int64 `protobuf:"varint,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
-	OrderId int64 `protobuf:"varint,2,opt,name=order_id,json=orderId,proto3" json:"order_id,omitempty"`
-}
-
-func (x *MarkOrderPaidReq) Reset() {
-	*x = MarkOrderPaidReq{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_order_proto_msgTypes[10]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *MarkOrderPaidReq) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*MarkOrderPaidReq) ProtoMessage() {}
-
-func (x *MarkOrderPaidReq) ProtoReflect() protoreflect.Message {
-	mi := &file_order_proto_msgTypes[10]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use MarkOrderPaidReq.ProtoReflect.Descriptor instead.
-func (*MarkOrderPaidReq) Descriptor() ([]byte, []int) {
-	return file_order_proto_rawDescGZIP(), []int{10}
-}
-
-func (x *MarkOrderPaidReq) GetUserId() int64 {
-	if x != nil {
-		return x.UserId
-	}
-	return 0
-}
-
-func (x *MarkOrderPaidReq) GetOrderId() int64 {
-	if x != nil {
-		return x.OrderId
-	}
-	return 0
-}
-
-type MarkOrderPaidResp struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	BaseResp *base.BaseResp `protobuf:"bytes,1,opt,name=base_resp,json=baseResp,proto3" json:"base_resp,omitempty"`
-}
-
-func (x *MarkOrderPaidResp) Reset() {
-	*x = MarkOrderPaidResp{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_order_proto_msgTypes[11]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *MarkOrderPaidResp) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*MarkOrderPaidResp) ProtoMessage() {}
-
-func (x *MarkOrderPaidResp) ProtoReflect() protoreflect.Message {
-	mi := &file_order_proto_msgTypes[11]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use MarkOrderPaidResp.ProtoReflect.Descriptor instead.
-func (*MarkOrderPaidResp) Descriptor() ([]byte, []int) {
-	return file_order_proto_rawDescGZIP(), []int{11}
-}
-
-func (x *MarkOrderPaidResp) GetBaseResp() *base.BaseResp {
-	if x != nil {
-		return x.BaseResp
-	}
-	return nil
-}
-
 var File_order_proto protoreflect.FileDescriptor
 
 var file_order_proto_rawDesc = []byte{
@@ -804,28 +702,15 @@ var file_order_proto_rawDesc = []byte{
 	0x6f, 0x72, 0x64, 0x65, 0x72, 0x73, 0x12, 0x2b, 0x0a, 0x09, 0x62, 0x61, 0x73, 0x65, 0x5f, 0x72,
 	0x65, 0x73, 0x70, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x0e, 0x2e, 0x62, 0x61, 0x73, 0x65,
 	0x2e, 0x42, 0x61, 0x73, 0x65, 0x52, 0x65, 0x73, 0x70, 0x52, 0x08, 0x62, 0x61, 0x73, 0x65, 0x52,
-	0x65, 0x73, 0x70, 0x22, 0x46, 0x0a, 0x10, 0x4d, 0x61, 0x72, 0x6b, 0x4f, 0x72, 0x64, 0x65, 0x72,
-	0x50, 0x61, 0x69, 0x64, 0x52, 0x65, 0x71, 0x12, 0x17, 0x0a, 0x07, 0x75, 0x73, 0x65, 0x72, 0x5f,
-	0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x03, 0x52, 0x06, 0x75, 0x73, 0x65, 0x72, 0x49, 0x64,
-	0x12, 0x19, 0x0a, 0x08, 0x6f, 0x72, 0x64, 0x65, 0x72, 0x5f, 0x69, 0x64, 0x18, 0x02, 0x20, 0x01,
-	0x28, 0x03, 0x52, 0x07, 0x6f, 0x72, 0x64, 0x65, 0x72, 0x49, 0x64, 0x22, 0x40, 0x0a, 0x11, 0x4d,
-	0x61, 0x72, 0x6b, 0x4f, 0x72, 0x64, 0x65, 0x72, 0x50, 0x61, 0x69, 0x64, 0x52, 0x65, 0x73, 0x70,
-	0x12, 0x2b, 0x0a, 0x09, 0x62, 0x61, 0x73, 0x65, 0x5f, 0x72, 0x65, 0x73, 0x70, 0x18, 0x01, 0x20,
-	0x01, 0x28, 0x0b, 0x32, 0x0e, 0x2e, 0x62, 0x61, 0x73, 0x65, 0x2e, 0x42, 0x61, 0x73, 0x65, 0x52,
-	0x65, 0x73, 0x70, 0x52, 0x08, 0x62, 0x61, 0x73, 0x65, 0x52, 0x65, 0x73, 0x70, 0x32, 0x8b, 0x02,
-	0x0a, 0x0c, 0x4f, 0x72, 0x64, 0x65, 0x72, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x12, 0x3b,
-	0x0a, 0x0a, 0x50, 0x6c, 0x61, 0x63, 0x65, 0x4f, 0x72, 0x64, 0x65, 0x72, 0x12, 0x14, 0x2e, 0x6f,
-	0x72, 0x64, 0x65, 0x72, 0x2e, 0x50, 0x6c, 0x61, 0x63, 0x65, 0x4f, 0x72, 0x64, 0x65, 0x72, 0x52,
-	0x65, 0x71, 0x1a, 0x15, 0x2e, 0x6f, 0x72, 0x64, 0x65, 0x72, 0x2e, 0x50, 0x6c, 0x61, 0x63, 0x65,
-	0x4f, 0x72, 0x64, 0x65, 0x72, 0x52, 0x65, 0x73, 0x70, 0x22, 0x00, 0x12, 0x38, 0x0a, 0x09, 0x4c,
-	0x69, 0x73, 0x74, 0x4f, 0x72, 0x64, 0x65, 0x72, 0x12, 0x13, 0x2e, 0x6f, 0x72, 0x64, 0x65, 0x72,
-	0x2e, 0x4c, 0x69, 0x73, 0x74, 0x4f, 0x72, 0x64, 0x65, 0x72, 0x52, 0x65, 0x71, 0x1a, 0x14, 0x2e,
-	0x6f, 0x72, 0x64, 0x65, 0x72, 0x2e, 0x4c, 0x69, 0x73, 0x74, 0x4f, 0x72, 0x64, 0x65, 0x72, 0x52,
-	0x65, 0x73, 0x70, 0x22, 0x00, 0x12, 0x44, 0x0a, 0x0d, 0x4d, 0x61, 0x72, 0x6b, 0x4f, 0x72, 0x64,
-	0x65, 0x72, 0x50, 0x61, 0x69, 0x64, 0x12, 0x17, 0x2e, 0x6f, 0x72, 0x64, 0x65, 0x72, 0x2e, 0x4d,
-	0x61, 0x72, 0x6b, 0x4f, 0x72, 0x64, 0x65, 0x72, 0x50, 0x61, 0x69, 0x64, 0x52, 0x65, 0x71, 0x1a,
-	0x18, 0x2e, 0x6f, 0x72, 0x64, 0x65, 0x72, 0x2e, 0x4d, 0x61, 0x72, 0x6b, 0x4f, 0x72, 0x64, 0x65,
-	0x72, 0x50, 0x61, 0x69, 0x64, 0x52, 0x65, 0x73, 0x70, 0x22, 0x00, 0x12, 0x3e, 0x0a, 0x0b, 0x55,
+	0x65, 0x73, 0x70, 0x32, 0xc5, 0x01, 0x0a, 0x0c, 0x4f, 0x72, 0x64, 0x65, 0x72, 0x53, 0x65, 0x72,
+	0x76, 0x69, 0x63, 0x65, 0x12, 0x3b, 0x0a, 0x0a, 0x50, 0x6c, 0x61, 0x63, 0x65, 0x4f, 0x72, 0x64,
+	0x65, 0x72, 0x12, 0x14, 0x2e, 0x6f, 0x72, 0x64, 0x65, 0x72, 0x2e, 0x50, 0x6c, 0x61, 0x63, 0x65,
+	0x4f, 0x72, 0x64, 0x65, 0x72, 0x52, 0x65, 0x71, 0x1a, 0x15, 0x2e, 0x6f, 0x72, 0x64, 0x65, 0x72,
+	0x2e, 0x50, 0x6c, 0x61, 0x63, 0x65, 0x4f, 0x72, 0x64, 0x65, 0x72, 0x52, 0x65, 0x73, 0x70, 0x22,
+	0x00, 0x12, 0x38, 0x0a, 0x09, 0x4c, 0x69, 0x73, 0x74, 0x4f, 0x72, 0x64, 0x65, 0x72, 0x12, 0x13,
+	0x2e, 0x6f, 0x72, 0x64, 0x65, 0x72, 0x2e, 0x4c, 0x69, 0x73, 0x74, 0x4f, 0x72, 0x64, 0x65, 0x72,
+	0x52, 0x65, 0x71, 0x1a, 0x14, 0x2e, 0x6f, 0x72, 0x64, 0x65, 0x72, 0x2e, 0x4c, 0x69, 0x73, 0x74,
+	0x4f, 0x72, 0x64, 0x65, 0x72, 0x52, 0x65, 0x73, 0x70, 0x22, 0x00, 0x12, 0x3e, 0x0a, 0x0b, 0x55,
 	0x70, 0x64, 0x61, 0x74, 0x65, 0x4f, 0x72, 0x64, 0x65, 0x72, 0x12, 0x15, 0x2e, 0x6f, 0x72, 0x64,
 	0x65, 0x72, 0x2e, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x4f, 0x72, 0x64, 0x65, 0x72, 0x52, 0x65,
 	0x71, 0x1a, 0x16, 0x2e, 0x6f, 0x72, 0x64, 0x65, 0x72, 0x2e, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65,
@@ -849,49 +734,44 @@ func file_order_proto_rawDescGZIP() []byte {
 	return file_order_proto_rawDescData
 }
 
-var file_order_proto_msgTypes = make([]protoimpl.MessageInfo, 12)
+var file_order_proto_msgTypes = make([]protoimpl.MessageInfo, 10)
 var file_order_proto_goTypes = []interface{}{
-	(*UpdateOrderReq)(nil),    // 0: order.UpdateOrderReq
-	(*UpdateOrderResp)(nil),   // 1: order.UpdateOrderResp
-	(*Address)(nil),           // 2: order.Address
-	(*PlaceOrderReq)(nil),     // 3: order.PlaceOrderReq
-	(*OrderItem)(nil),         // 4: order.OrderItem
-	(*OrderResult)(nil),       // 5: order.OrderResult
-	(*PlaceOrderResp)(nil),    // 6: order.PlaceOrderResp
-	(*ListOrderReq)(nil),      // 7: order.ListOrderReq
-	(*Order)(nil),             // 8: order.Order
-	(*ListOrderResp)(nil),     // 9: order.ListOrderResp
-	(*MarkOrderPaidReq)(nil),  // 10: order.MarkOrderPaidReq
-	(*MarkOrderPaidResp)(nil), // 11: order.MarkOrderPaidResp
-	(*base.BaseResp)(nil),     // 12: base.BaseResp
-	(*cart.CartItem)(nil),     // 13: cart.CartItem
+	(*UpdateOrderReq)(nil),  // 0: order.UpdateOrderReq
+	(*UpdateOrderResp)(nil), // 1: order.UpdateOrderResp
+	(*Address)(nil),         // 2: order.Address
+	(*PlaceOrderReq)(nil),   // 3: order.PlaceOrderReq
+	(*OrderItem)(nil),       // 4: order.OrderItem
+	(*OrderResult)(nil),     // 5: order.OrderResult
+	(*PlaceOrderResp)(nil),  // 6: order.PlaceOrderResp
+	(*ListOrderReq)(nil),    // 7: order.ListOrderReq
+	(*Order)(nil),           // 8: order.Order
+	(*ListOrderResp)(nil),   // 9: order.ListOrderResp
+	(*base.BaseResp)(nil),   // 10: base.BaseResp
+	(*cart.CartItem)(nil),   // 11: cart.CartItem
 }
 var file_order_proto_depIdxs = []int32{
 	8,  // 0: order.UpdateOrderReq.changed_order:type_name -> order.Order
-	12, // 1: order.UpdateOrderResp.base_resp:type_name -> base.BaseResp
+	10, // 1: order.UpdateOrderResp.base_resp:type_name -> base.BaseResp
 	2,  // 2: order.PlaceOrderReq.address:type_name -> order.Address
 	4,  // 3: order.PlaceOrderReq.order_items:type_name -> order.OrderItem
-	13, // 4: order.OrderItem.item:type_name -> cart.CartItem
+	11, // 4: order.OrderItem.item:type_name -> cart.CartItem
 	5,  // 5: order.PlaceOrderResp.order:type_name -> order.OrderResult
-	12, // 6: order.PlaceOrderResp.base_resp:type_name -> base.BaseResp
+	10, // 6: order.PlaceOrderResp.base_resp:type_name -> base.BaseResp
 	4,  // 7: order.Order.order_items:type_name -> order.OrderItem
 	2,  // 8: order.Order.address:type_name -> order.Address
 	8,  // 9: order.ListOrderResp.orders:type_name -> order.Order
-	12, // 10: order.ListOrderResp.base_resp:type_name -> base.BaseResp
-	12, // 11: order.MarkOrderPaidResp.base_resp:type_name -> base.BaseResp
-	3,  // 12: order.OrderService.PlaceOrder:input_type -> order.PlaceOrderReq
-	7,  // 13: order.OrderService.ListOrder:input_type -> order.ListOrderReq
-	10, // 14: order.OrderService.MarkOrderPaid:input_type -> order.MarkOrderPaidReq
-	0,  // 15: order.OrderService.UpdateOrder:input_type -> order.UpdateOrderReq
-	6,  // 16: order.OrderService.PlaceOrder:output_type -> order.PlaceOrderResp
-	9,  // 17: order.OrderService.ListOrder:output_type -> order.ListOrderResp
-	11, // 18: order.OrderService.MarkOrderPaid:output_type -> order.MarkOrderPaidResp
-	1,  // 19: order.OrderService.UpdateOrder:output_type -> order.UpdateOrderResp
-	16, // [16:20] is the sub-list for method output_type
-	12, // [12:16] is the sub-list for method input_type
-	12, // [12:12] is the sub-list for extension type_name
-	12, // [12:12] is the sub-list for extension extendee
-	0,  // [0:12] is the sub-list for field type_name
+	10, // 10: order.ListOrderResp.base_resp:type_name -> base.BaseResp
+	3,  // 11: order.OrderService.PlaceOrder:input_type -> order.PlaceOrderReq
+	7,  // 12: order.OrderService.ListOrder:input_type -> order.ListOrderReq
+	0,  // 13: order.OrderService.UpdateOrder:input_type -> order.UpdateOrderReq
+	6,  // 14: order.OrderService.PlaceOrder:output_type -> order.PlaceOrderResp
+	9,  // 15: order.OrderService.ListOrder:output_type -> order.ListOrderResp
+	1,  // 16: order.OrderService.UpdateOrder:output_type -> order.UpdateOrderResp
+	14, // [14:17] is the sub-list for method output_type
+	11, // [11:14] is the sub-list for method input_type
+	11, // [11:11] is the sub-list for extension type_name
+	11, // [11:11] is the sub-list for extension extendee
+	0,  // [0:11] is the sub-list for field type_name
 }
 
 func init() { file_order_proto_init() }
@@ -1020,30 +900,6 @@ func file_order_proto_init() {
 				return nil
 			}
 		}
-		file_order_proto_msgTypes[10].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*MarkOrderPaidReq); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_order_proto_msgTypes[11].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*MarkOrderPaidResp); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
@@ -1051,7 +907,7 @@ func file_order_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_order_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   12,
+			NumMessages:   10,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
@@ -1072,6 +928,5 @@ var _ context.Context
 type OrderService interface {
 	PlaceOrder(ctx context.Context, req *PlaceOrderReq) (res *PlaceOrderResp, err error)
 	ListOrder(ctx context.Context, req *ListOrderReq) (res *ListOrderResp, err error)
-	MarkOrderPaid(ctx context.Context, req *MarkOrderPaidReq) (res *MarkOrderPaidResp, err error)
 	UpdateOrder(ctx context.Context, req *UpdateOrderReq) (res *UpdateOrderResp, err error)
 }

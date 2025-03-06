@@ -1,10 +1,11 @@
 package service
 
+//TODO 看一下别的地方导包又没有导错的，比如order导成auth的包
 import (
 	"context"
 	"encoding/json"
 
-	"github.com/Group-lifelong-youth-training/mygomall/app/auth/biz/dal/mysql"
+	"github.com/Group-lifelong-youth-training/mygomall/app/order/biz/dal/mysql"
 	"github.com/Group-lifelong-youth-training/mygomall/app/order/biz/model"
 	"github.com/Group-lifelong-youth-training/mygomall/app/order/infra/mq"
 	"github.com/Group-lifelong-youth-training/mygomall/pkg/utils"
@@ -62,8 +63,8 @@ func (s *PlaceOrderService) Run(req *order.PlaceOrderReq) (resp *order.PlaceOrde
 				ID: v.Item.ProductId,
 			},
 			OrderIdRefer: o.Base.ID,
-			Quantity:     v.Item.Quantity,
-			Cost:         v.Cost,
+			Quantity:     &v.Item.Quantity,
+			Cost:         &v.Cost,
 		})
 		orderMessageBody.Items = append(orderMessageBody.Items, model.Product{
 			ProductId: v.Item.ProductId,

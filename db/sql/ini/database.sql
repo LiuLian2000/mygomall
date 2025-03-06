@@ -48,7 +48,7 @@ CREATE TABLE IF NOT EXISTS `order` (
     `state` varchar(191) NOT NULL,
     `country` varchar(191) NOT NULL,
     `zip_code` int NOT NULL,
-    `order_state` varchar(191) NOT NULL,
+    `order_state` int NOT NULL,
     PRIMARY KEY (`id`),
     INDEX idx_orders_user_deleted (user_id, deleted_at)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -80,7 +80,8 @@ CREATE TABLE IF NOT EXISTS `order_item` (
     `quantity` int NOT NULL,
     `cost` float NOT NULL,
     PRIMARY KEY (`id`),
-    INDEX `idx_order_item_order_id_refer` (`order_id_refer`)
+    -- INDEX `idx_order_item_order_id_refer` (`order_id_refer`)
+    INDEX `idx_order_item_order_id_refer_item_id` (`order_id_refer`, `id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- automigrate生成的

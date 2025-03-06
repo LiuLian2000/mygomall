@@ -10,7 +10,6 @@ option go_package = "order";
 service OrderService {
   rpc PlaceOrder(PlaceOrderReq) returns (PlaceOrderResp) {}
   rpc ListOrder(ListOrderReq) returns (ListOrderResp) {}
-  rpc MarkOrderPaid(MarkOrderPaidReq) returns (MarkOrderPaidResp) {}
   rpc UpdateOrder(UpdateOrderReq) returns (UpdateOrderResp) {}
 }
 
@@ -72,12 +71,4 @@ message ListOrderResp {
   base.BaseResp base_resp = 2;
 }
 
-message MarkOrderPaidReq {
-  int64 user_id = 1;
-  int64 order_id = 2;
-}
-
-message MarkOrderPaidResp {
-  base.BaseResp base_resp = 1;
-}
 

@@ -489,71 +489,6 @@ func (x *ListOrderResp) fastReadField2(buf []byte, _type int8) (offset int, err 
 	return offset, nil
 }
 
-func (x *MarkOrderPaidReq) FastRead(buf []byte, _type int8, number int32) (offset int, err error) {
-	switch number {
-	case 1:
-		offset, err = x.fastReadField1(buf, _type)
-		if err != nil {
-			goto ReadFieldError
-		}
-	case 2:
-		offset, err = x.fastReadField2(buf, _type)
-		if err != nil {
-			goto ReadFieldError
-		}
-	default:
-		offset, err = fastpb.Skip(buf, _type, number)
-		if err != nil {
-			goto SkipFieldError
-		}
-	}
-	return offset, nil
-SkipFieldError:
-	return offset, fmt.Errorf("%T cannot parse invalid wire-format data, error: %s", x, err)
-ReadFieldError:
-	return offset, fmt.Errorf("%T read field %d '%s' error: %s", x, number, fieldIDToName_MarkOrderPaidReq[number], err)
-}
-
-func (x *MarkOrderPaidReq) fastReadField1(buf []byte, _type int8) (offset int, err error) {
-	x.UserId, offset, err = fastpb.ReadInt64(buf, _type)
-	return offset, err
-}
-
-func (x *MarkOrderPaidReq) fastReadField2(buf []byte, _type int8) (offset int, err error) {
-	x.OrderId, offset, err = fastpb.ReadInt64(buf, _type)
-	return offset, err
-}
-
-func (x *MarkOrderPaidResp) FastRead(buf []byte, _type int8, number int32) (offset int, err error) {
-	switch number {
-	case 1:
-		offset, err = x.fastReadField1(buf, _type)
-		if err != nil {
-			goto ReadFieldError
-		}
-	default:
-		offset, err = fastpb.Skip(buf, _type, number)
-		if err != nil {
-			goto SkipFieldError
-		}
-	}
-	return offset, nil
-SkipFieldError:
-	return offset, fmt.Errorf("%T cannot parse invalid wire-format data, error: %s", x, err)
-ReadFieldError:
-	return offset, fmt.Errorf("%T read field %d '%s' error: %s", x, number, fieldIDToName_MarkOrderPaidResp[number], err)
-}
-
-func (x *MarkOrderPaidResp) fastReadField1(buf []byte, _type int8) (offset int, err error) {
-	var v base.BaseResp
-	offset, err = fastpb.ReadMessage(buf, _type, &v)
-	if err != nil {
-		return offset, err
-	}
-	x.BaseResp = &v
-	return offset, nil
-}
-
 func (x *UpdateOrderReq) FastWrite(buf []byte) (offset int) {
 	if x == nil {
 		return offset
@@ -870,47 +805,6 @@ func (x *ListOrderResp) fastWriteField2(buf []byte) (offset int) {
 		return offset
 	}
 	offset += fastpb.WriteMessage(buf[offset:], 2, x.GetBaseResp())
-	return offset
-}
-
-func (x *MarkOrderPaidReq) FastWrite(buf []byte) (offset int) {
-	if x == nil {
-		return offset
-	}
-	offset += x.fastWriteField1(buf[offset:])
-	offset += x.fastWriteField2(buf[offset:])
-	return offset
-}
-
-func (x *MarkOrderPaidReq) fastWriteField1(buf []byte) (offset int) {
-	if x.UserId == 0 {
-		return offset
-	}
-	offset += fastpb.WriteInt64(buf[offset:], 1, x.GetUserId())
-	return offset
-}
-
-func (x *MarkOrderPaidReq) fastWriteField2(buf []byte) (offset int) {
-	if x.OrderId == 0 {
-		return offset
-	}
-	offset += fastpb.WriteInt64(buf[offset:], 2, x.GetOrderId())
-	return offset
-}
-
-func (x *MarkOrderPaidResp) FastWrite(buf []byte) (offset int) {
-	if x == nil {
-		return offset
-	}
-	offset += x.fastWriteField1(buf[offset:])
-	return offset
-}
-
-func (x *MarkOrderPaidResp) fastWriteField1(buf []byte) (offset int) {
-	if x.BaseResp == nil {
-		return offset
-	}
-	offset += fastpb.WriteMessage(buf[offset:], 1, x.GetBaseResp())
 	return offset
 }
 
@@ -1233,47 +1127,6 @@ func (x *ListOrderResp) sizeField2() (n int) {
 	return n
 }
 
-func (x *MarkOrderPaidReq) Size() (n int) {
-	if x == nil {
-		return n
-	}
-	n += x.sizeField1()
-	n += x.sizeField2()
-	return n
-}
-
-func (x *MarkOrderPaidReq) sizeField1() (n int) {
-	if x.UserId == 0 {
-		return n
-	}
-	n += fastpb.SizeInt64(1, x.GetUserId())
-	return n
-}
-
-func (x *MarkOrderPaidReq) sizeField2() (n int) {
-	if x.OrderId == 0 {
-		return n
-	}
-	n += fastpb.SizeInt64(2, x.GetOrderId())
-	return n
-}
-
-func (x *MarkOrderPaidResp) Size() (n int) {
-	if x == nil {
-		return n
-	}
-	n += x.sizeField1()
-	return n
-}
-
-func (x *MarkOrderPaidResp) sizeField1() (n int) {
-	if x.BaseResp == nil {
-		return n
-	}
-	n += fastpb.SizeMessage(1, x.GetBaseResp())
-	return n
-}
-
 var fieldIDToName_UpdateOrderReq = map[int32]string{
 	1: "ChangedOrder",
 }
@@ -1329,15 +1182,6 @@ var fieldIDToName_Order = map[int32]string{
 var fieldIDToName_ListOrderResp = map[int32]string{
 	1: "Orders",
 	2: "BaseResp",
-}
-
-var fieldIDToName_MarkOrderPaidReq = map[int32]string{
-	1: "UserId",
-	2: "OrderId",
-}
-
-var fieldIDToName_MarkOrderPaidResp = map[int32]string{
-	1: "BaseResp",
 }
 
 var _ = cart.File_cart_proto

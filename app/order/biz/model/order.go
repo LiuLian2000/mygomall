@@ -29,12 +29,10 @@ type Address struct {
 	ZipCode       int32
 }
 
-type OrderState string
-
 const (
-	OrderStatePlaced   OrderState = "placed"
-	OrderStatePaid     OrderState = "paid"
-	OrderStateCanceled OrderState = "canceled"
+	OrderStatePlaced   = 0
+	OrderStatePaid     = 1
+	OrderStateCanceled = 2
 )
 
 type Order struct {
@@ -42,7 +40,7 @@ type Order struct {
 	UserId     int64       `gorm:"index:idx_orders_user_deleted"`
 	Address    Address     `gorm:"embedded"`
 	OrderItems []OrderItem `gorm:"foreignKey:OrderIdRefer"`
-	OrderState OrderState
+	OrderState int32
 	DeletedAt  soft_delete.DeletedAt `gorm:"index:idx_orders_user_deleted"`
 }
 
@@ -50,8 +48,26 @@ func (o Order) TableName() string {
 	return "order"
 }
 
+// TODO db这里查一下有没有加withcontext
 func CreateOrder(db *gorm.DB, ctx context.Context, order *Order) (err error) {
 	err = db.WithContext(ctx).Create(order).Error
+	return
+}
+
+func UpdateOrder(db *gorm.DB, ctx context.Context, order *Order) (err error) {
+	err = db.WithContext(ctx).Model(&order).
+		Where("id = ?", order.ID).
+		Updates(order).Error
+	return
+}
+
+func ListOrder(db *gorm.DB, ctx context.Context, userId int64) (orders []Order, err error) {
+	err = db.WithContext(ctx).Model(&Order{}).Where(&Order{UserId: userId}).Preload("OrderItems").Find(&orders).Error
+	return
+}
+
+func ListDeletedOrder(db *gorm.DB, ctx context.Context, userId int64) (orders []Order, err error) {
+	err = db.WithContext(ctx).Unscoped().Model(&Order{}).Where(&Order{UserId: userId}).Preload("OrderItems").Find(&orders).Error
 	return
 }
 
